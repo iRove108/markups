@@ -1,0 +1,1 @@
+from .highlighting import HighlightExtractor
