@@ -1,18 +1,49 @@
 import cv2
 import numpy as np
 
-class HighlightExtractor: # TODO: create generic Extractor class & inherit
+class Extractor:
     """
-    Class used to extract highlighted regions from an image
+    Generic class used to extract regions from an image
     """
     def __init__(self):
         """
-        Initialize highlight extractor with upper and lower HSV bounds to filter out highlight color
+        #TODO @irove I don't think a generic class is necessary in this case as you'll need different attributes for different extraction cases (ex you prob won't need HSV for underline extraction right?). Nonetheless, here is your generic class :)
+        """
+        pass
+
+    def extract(self):
+        pass
+
+
+class HighlightExtractor(Extractor): # TODO: create generic Extractor class & inherit
+    """
+    Class used to extract highlighted regions from an image
+    """
+    def __init__(self, lowerb = np.array([23, 50, 50]), upperb = np.array([40, 255, 255])):
+        """
+        Initialize highlight extractor with upper and lower HSV bounds to filter out highlight color        
+        Args:
+            lowerb: Lower HSV bound 
+            upperb: Upper HSV bound
+        Returns:
+            None
         """
         # decent bounds for yellow highlighting
-        self.lowerb = np.array([23, 50, 50])
-        self.upperb = np.array([40, 255, 255])
+        self.lowerb = lowerb
+        self.upperb = upperb
         # TODO: create data structure that defines these bounds and allow user to pass in bounds for custom highlight color
+
+    def set_bounds(self, upperb, lowerb):
+        """
+        Function to reset HSV bounds of a HighlightExtractor
+        Args:
+            lowerb: Lower HSV bound 
+            upperb: Upper HSV bound
+        Returns:
+            None
+        """
+        self.lowerb = lowerb
+        self.upperb = upperb
 
     def extract(self, src):
         """
