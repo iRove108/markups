@@ -1,21 +1,7 @@
 import cv2
 import numpy as np
 
-class Extractor:
-    """
-    Generic class used to extract regions from an image
-    """
-    def __init__(self):
-        """
-        #TODO @irove I don't think a generic class is necessary in this case as you'll need different attributes for different extraction cases (ex you prob won't need HSV for underline extraction right?). Nonetheless, here is your generic class :)
-        """
-        pass
-
-    def extract(self):
-        pass
-
-
-class HighlightExtractor(Extractor): # TODO: create generic Extractor class & inherit
+class HighlightExtractor(): # TODO: create generic Extractor class & inherit
     """
     Class used to extract highlighted regions from an image
     """
