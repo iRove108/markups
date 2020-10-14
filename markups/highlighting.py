@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-class HighlightExtractor(): # TODO: create generic Extractor class & inherit
+class HighlightExtractor():
     """
     Class used to extract highlighted regions from an image
     """
@@ -17,7 +17,6 @@ class HighlightExtractor(): # TODO: create generic Extractor class & inherit
         # decent bounds for yellow highlighting
         self.lowerb = lowerb
         self.upperb = upperb
-        # TODO: create data structure that defines these bounds and allow user to pass in bounds for custom highlight color
 
     def set_bounds(self, upperb, lowerb):
         """
