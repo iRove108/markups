@@ -1,2 +1,2 @@
 from .highlighting import HighlightExtractor
-from .textdetection import TextDetector
+from .textdetection import detect_text
