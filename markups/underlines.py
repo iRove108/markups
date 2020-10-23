@@ -1,11 +1,14 @@
+import math
 import cv2
 import numpy as np
+
+from .textdetection import text_mask
 
 class UnderlineExtractor():
     """
     Class used to extract underlined text from an image
     """
-    def __init__(self, cannyb = np.array([80, 120]), min_line_len = 30, max_line_gap = 1)):
+    def __init__(self, cannyb = np.array([80, 120]), min_line_len = 30, max_line_gap = 1):
         """
         Initialize underline extractor with canny threshold bounds for edge detection
         and arguments for houghlines
@@ -48,13 +51,14 @@ class UnderlineExtractor():
             np.array: The image with all horizontal lines marked
         """
 
-	gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
-	edges = cv2.Canny(gray, self.cannyb[0], self.cannyb[1])
-	lines = cv2.HoughLinesP(edges, 1, math.pi/2, 2, None, self.min_line_len, self.max_line_gap);
-	for line in lines[0]:
-   	    pt1 = (line[0],line[1])
-    	    pt2 = (line[2],line[3])
-    	    cv2.line(src, pt1, pt2, (0,0,255), 3)
+        gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+
+        edges = cv2.Canny(gray, self.cannyb[0], self.cannyb[1])
+        lines = cv2.HoughLinesP(edges, rho=1, theta=math.pi/180, threshold=2,
+                                minLineLength=self.min_line_len, maxLineGap=self.max_line_gap);
+        for line in lines:
+            x1,y1,x2,y2 = line[0]
+            cv2.line(src, (x1,y1), (x2,y2), color=(255,0,0), thickness=2)
 
         #TODO what should we do from here once we have the lines marked?
 
