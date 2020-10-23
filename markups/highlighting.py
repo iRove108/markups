@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+from .textdetection import detect_text
+
 class HighlightExtractor():
     """
     Class used to extract highlighted regions from an image
@@ -44,9 +46,20 @@ class HighlightExtractor():
         mask = cv2.inRange(src_hsv, self.lowerb, self.upperb)
 
         # Remove isolated regions of mask
-        kernel = cv2.getStructuringElement(cv2.MORPH_OPEN, (5, 5))
+        kernel = cv2.getStructuringElement(cv2.MORPH_OPEN, (7, 7))
         cv2.erode(mask, kernel, mask)
         cv2.dilate(mask, kernel, mask)
+
+        # Tune the mask with text detection;
+        # add text region to mask if > 51% is highlighted (i.e. present in current mask)
+        text_bboxes = detect_text(src)
+        for x, y, w, h in text_bboxes:
+            text_mask = np.zeros((src.shape[0], src.shape[1]), dtype=np.uint8)
+            text_mask[y:y+h, x:x+w] = 255 # mark bbox region white in mask
+
+            ratio_highlighted = cv2.countNonZero(mask & text_mask) / (w * h)
+            if ratio_highlighted > .5:
+                mask |= text_mask
 
         return mask
 

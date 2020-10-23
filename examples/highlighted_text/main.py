@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 from markups import (
     HighlightExtractor,
 )
@@ -10,7 +11,7 @@ def main():
     extractor = HighlightExtractor()
     mask = extractor.extract(src_small)
 
-    cv2.imshow('mask', mask)
+    cv2.imshow('image', src_small & mask[:, :, np.newaxis])
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 

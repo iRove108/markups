@@ -6,7 +6,7 @@ def detect_text(src):
     Perform the text detection algorithm and return a list of regions, where each region contains a word in the text.
 
     Args:
-        src (np.array): source image
+        src (np.array): source BGR image
     Returns:
         List[Tuple[int]]: A list of bounding boxes of the form (x, y, w, h)
               where each bounding box contains a word detected in the text.
@@ -29,16 +29,7 @@ def detect_text(src):
         # ratio of non-zero pixels in filled region
         r = float(cv2.countNonZero(cropped)) / (cropped.shape[0] * cropped.shape[1])
         if r > .3 and cropped.shape[0] > 5 and cropped.shape[1] > 5: # constrain region size
-            # expand text region slightly before adding it
-            w_big = w + 10
-            h_big = h + 5
-
-            # check bounds are still valid after expansion
-            if y - h_big > 0 and y + h_big < src.shape[0] and \
-               x - w_big > 0 and x + w_big < src.shape[1]:
-                regions.append((x, y, w, h))
-            else:
-                regions.append((x, y, w_big, h_big))
+            regions.append((x, y, w, h))
 
     return regions
 
