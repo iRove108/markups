@@ -33,6 +33,22 @@ def detect_text(src):
 
     return regions
 
+def text_mask(src):
+    """
+    Perform text detection and return the mask associated with the text in the image.
+    Args:
+        src (np.array): source BGR image
+    Returns:
+        dst (np.array): output mask (np.array with type np.uint8)
+    """
+
+    text_regions = detect_text(src)
+    mask = np.zeros((src.shape[0], src.shape[1]), dtype=np.uint8)
+    for x,y,w,h in text_regions:
+        mask[y:y+h, x:x+w] = 255 # mark bbox region white in mask
+
+    return mask
+
 def _binarize_with_morph_grad(src):
     """
     First perform morphological gradient, then use Otsu's binarization (https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html#otsus-binarization)
