@@ -9,9 +9,9 @@ class HighlightExtractor():
     """
     def __init__(self, lowerb = np.array([23, 50, 50]), upperb = np.array([40, 255, 255])):
         """
-        Initialize highlight extractor with upper and lower HSV bounds to filter out highlight color        
+        Initialize highlight extractor with upper and lower HSV bounds to filter out highlight color
         Args:
-            lowerb: Lower HSV bound 
+            lowerb: Lower HSV bound
             upperb: Upper HSV bound
         Returns:
             None
@@ -24,7 +24,7 @@ class HighlightExtractor():
         """
         Function to reset HSV bounds of a HighlightExtractor
         Args:
-            lowerb: Lower HSV bound 
+            lowerb: Lower HSV bound
             upperb: Upper HSV bound
         Returns:
             None
@@ -38,7 +38,7 @@ class HighlightExtractor():
 
         Args:
             src (np.array): BGR source image
-        
+
         Returns:
             np.array: The masked image
         """
@@ -63,3 +63,21 @@ class HighlightExtractor():
 
         return mask
 
+    def sat_extract(self, src):
+        """
+        Extract highlighted regions of a BGR image based on areas of high saturation
+
+        Args:
+            src (np.array): BGR source image
+
+        Returns:
+            np.array: The masked image
+        """
+        src_hsv = cv2.cvtColor(src, cv2.COLOR_BGR2HSV)
+        mask = src_hsv[:, :, 1]
+        mask = cv2.bilateralFilter(mask,25,75,75)
+        trash, mask = cv2.threshold(mask,50,255,cv2.THRESH_BINARY)
+        kernel = np.ones((3,3),np.uint8)
+        mask = cv2.erode(mask,kernel,iterations = 1)
+        mask = cv2.dilate(mask,kernel,iterations = 1)
+        return mask
