@@ -11,3 +11,8 @@
 ### Code
 - [Handwritten text detection in document images](https://github.com/crazycloud/Handwritten-text-Detection-Detectron2) repo
   - Uses Facebook's [Detectron 2](https://github.com/facebookresearch/detectron2)
+
+### Handwritten Text Detection Repo
+Results from testing out [this repo](https://github.com/crazycloud/Handwritten-text-Detection-Detectron2). Approach follows mainly from this [Microsoft blog post](https://devblogs.microsoft.com/cse/2018/05/07/handwriting-detection-and-recognition-in-scanned-documents-using-azure-ml-package-computer-vision-azure-cognitive-services-ocr/) and relies on this [small sample of Microsoft's dataset](https://github.com/CatalystCode/Handwriting). Uses [Detectron2](https://github.com/facebookresearch/detectron2) for the modeling. As you can see from the image, it's an imperfect approach. However, it does provide a starting place.
+
+![](examples/sidenote_text/model1-results.jpg)
