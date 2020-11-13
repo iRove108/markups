@@ -17,6 +17,6 @@ Results from testing out [this repo](https://github.com/crazycloud/Handwritten-t
 
 ![](examples/sidenote_text/model1-results.jpg)
 
-The performance improves after training on Microsoft's full dataset (instead of the small sample of 99 images). Their full dataset can be found in the Azure storage blob at `https://handwriting.blob.core.windows.net/leasedata`. Here is a sample result after training:
+The performance improves after training on Microsoft's full 182-image dataset (instead of the small sample of 99 images). Their full dataset can be found in the Azure storage blob at `https://handwriting.blob.core.windows.net/leasedata`. Here is a sample result after training:
 
 ![](examples/sidenote_text/model2-results.jpg)
