@@ -6,6 +6,8 @@ Markups is a library written for Python and OpenCV that returns bounding boxes a
 - Sidenotes
 
 ## Install from source
+    git clone https://github.com/iRove108/markups.git
+    cd markups
     pip install .
 
 ## Running the highlight extraction example
