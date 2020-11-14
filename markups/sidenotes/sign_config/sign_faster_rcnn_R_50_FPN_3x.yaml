@@ -1,0 +1,17 @@
+_BASE_: "Base-RCNN-FPN.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  MASK_ON: False
+  RESNETS:
+    DEPTH: 50
+  ROI_HEADS:
+    NUM_CLASSES: 2
+SOLVER:
+  REFERENCE_WORLD_SIZE: 4 # num gpus to train on
+  # IMS_PER_BATCH: 16
+  STEPS: (210000, 250000)
+  MAX_ITER: 4000
+  CHECKPOINT_PERIOD: 50
+DATASETS:
+  TRAIN: ("signature_dataset_train",)
+  TEST: ("signature_dataset_train",)
