@@ -10,87 +10,25 @@ We wish to detect the handwritten text in the scanned/pdf document. It could be 
 Take following document image for an example. We wish to detect the text highlighted in the red bounding boxes.
 <img src="handwritten_sample.jpg">
 
-### Detectron2 Framework
-We will use pytorch detectron2 framework because it is simple and easy to extend. There are simple Training, Visualization, and Prediction modules available in the detectron2 which handles most of the stuff and we can use it as is, or if required, we can extend the functionality.
-
-Simple steps to train a vision model in Detectron2
-  
-  1. Convert dataset in the [detectron2 format](https://detectron2.readthedocs.io/tutorials/datasets.html#standard-dataset-dicts)
-  2. [Register the dataset](https://detectron2.readthedocs.io/tutorials/datasets.html#register-a-dataset) and metadata information like class labels
-  3. Update the config with registered dataset (DATASETS.{TRAIN,TEST}), model weight (MODEL.WEIGHT), learning rate, Number of output classes (MODEL.ROI_HEADS.NUM_CLASSES), and other training and test parameters
-  4. Train the model using [DefaultTrainer](https://github.com/facebookresearch/detectron2/blob/master/detectron2/engine/defaults.py) class
-  
- 
-#### Dataset Preparation(step 1 & 2)
-Detectron2 expects the dataset as list[dict] in the following format. So for training with detectron2 we will have to convert our dataset in the following format.
-
-```python
-[{'file_name': 'datasets/JPEGImages/1.jpg',
-  'image_id': '1',
-  'height': 3300,
-  'width': 2550,
-  'annotations': [{'category_id': 1,
-    'bbox': [1050.1000264270613,
-     457.33333333333337,
-     1406.9139799154334,
-     587.7450980392157],
-    'bbox_mode': <BoxMode.XYXY_ABS: 0>},
-   {'category_id': 1,
-    'bbox': [1529.9097515856238,
-     473.5098039215687,
-     1617.167679704017,
-     555.3921568627452],
-    'bbox_mode': <BoxMode.XYXY_ABS: 0>}]}]
+## Downloading the Full Dataset
+Once you've navigated to the sidenotes directory in terminal, run:
+```
+pip install azure-storage-blob
+python download_dataset.py
 ```
 
-Detectron registers this list of dict as torch dataset and uses the default dataloader and datasampler for training. We can register the list[dict] with detectron2 using following code
-
-``` python
-def get_dicts():
-  ...
-  return list[dict] in the above format
-
-from detectron2.data import DatasetCatalog
-DatasetCatalog.register("my_dataset", get_dicts)
+## Run the Jupyter Notebook
+Now, we're ready to train the model and make predictions! First, you'll need to [Install Jupyter Notebook or JupyterLab](https://jupyter.org/install)
+Once again, navigate to the sidenotes directory and run:
+```
+mkdir model_full_dataset
 ```
 
-And to register the metadata information related to dataset like category mapping to id's, the type of dataset, we have to set the keyvalue pair using
+If there are any particular images you want to test out in addition to the default, add them to the [test images](https://github.com/iRove108/markups/tree/sidenote-detection/markups/sidenotes/test_images) directory.
 
-```python
-MetadataCatalog.get("my_dataset").thing_classes = ["person", "dog"]
-```
+Now, open the `2020-04-09-Handwritten Text Detection in Detectron2` notebook with Jupyter Notebook or JupyterLab. Run the cells until you reach the end of the "Model Prediction" section, where you can see how the model performs on any test images.
 
-#### Choosing a Model and Initializing Configuration (step 3)
-
-Detectron2 has lot of pretrained model available in the [model zoo](https://github.com/facebookresearch/detectron2/blob/master/MODEL_ZOO.md). For handwritten text detection, we will choose Faster RCNN with FPN backbone. 
-
-We have to initialize the parameters and weights for model we want to train. 
-
-``` python
-cfg = get_cfg()
-cfg.merge_from_file('<pretrained model config'>)
-cfg.MODEL.WEIGHTS = '<path to pretrained model weight>
-
-#custom config for training
-cfg.DATASETS.TRAIN = ("<registered training dataset name>",)
-cfg.SOLVER.MAX_ITER = '<number of training iterations>'
-cfg.MODEL.ROI_HEADS.NUM_CLASSES = '<number of classes>'
-```
-
-All the model configs are available in cfg object. If we want to replicate the training later, we can save the cfg object and load it back to resume training.
-
-#### Model Training (step 4)
-We will use the DefaultTrainer for now. There are simple modules available which only accept the minimal parameters and make assumptions about lot of things.  
-
-The DefaultTrainer Module 
-  * builds the model
-  * builds the optimizer
-  * builds the dataloader
-  * loads the model weights, and
-  * register common hooks
-  
-```python
-trainer = DefaultTrainer(cfg) 
-trainer.resume_or_load(resume=False)
-trainer.train()
-```
+## Training on Multiple GPUs
+After you've installed the dependencies (which can be done by executing the "Install Detectron2" cell in the Jupyter Notebook), you can:
+1. Edit [this line](https://github.com/iRove108/markups/blob/70babf3a2a679867bb59a61b748c8aa88ebeca0c/markups/sidenotes/sign_config/sign_faster_rcnn_R_50_FPN_3x.yaml#L10), [this line](https://github.com/iRove108/markups/blob/70babf3a2a679867bb59a61b748c8aa88ebeca0c/markups/sidenotes/train_parallel.py#L124), and [this line](https://github.com/iRove108/markups/blob/70babf3a2a679867bb59a61b748c8aa88ebeca0c/markups/sidenotes/train_parallel.py#L127) to indicate the number of GPUs you will be using.
+2. Run `python train_parallel.py`
