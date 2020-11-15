@@ -38,3 +38,6 @@ After you've installed the dependencies (which can be done by executing the "Ins
 ## Example
 Here is an example of using the model to make predictions for sidenotes:
 ![](../../examples/sidenote_text/model2-results.jpg)
+
+## Research
+Research notes related to the development of the sidenote detection feature can be found [here](https://github.com/iRove108/markups/blob/sidenote-detection/markups/sidenotes/research.md)
