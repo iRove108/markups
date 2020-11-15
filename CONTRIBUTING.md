@@ -1,0 +1,2 @@
+## In-Development Features
+There are two kinds of annotations currently in-development: underlines and sidenotes. To contribute to either of these features, see the `markups/underlines` directory in the [underline-detection branch](https://github.com/iRove108/markups/tree/underline-detection/markups/underlines) or the `markups/sidenotes/` directory in the [sidenote-detection branch](https://github.com/iRove108/markups/tree/sidenote-detection/markups/sidenotes). When making a pull request for either feature, please request merges into the appropriate branch.
