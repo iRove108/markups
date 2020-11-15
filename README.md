@@ -1,9 +1,9 @@
 # Markups
 
-Markups is a library written for Python and OpenCV that returns bounding boxes around areas of text that have been annotated by a reader. The library supports the following forms of annotations:
+Markups is a library written for Python and OpenCV that identifies areas of text that have been annotated by a reader. The library supports the following forms of annotations:
 - Highlights
 
-The following forms of annotations are still _in development_. To learn more about them, see CONTRIBUTING.md.
+The following forms of annotations are _in development_. To learn more about them, see CONTRIBUTING.md.
 - Underlines
 - Sidenotes
 
