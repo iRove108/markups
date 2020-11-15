@@ -8,7 +8,7 @@ We wish to detect the handwritten text in the scanned/pdf document. It could be 
   * to mask the handwritten text
   
 Take following document image for an example. We wish to detect the text highlighted in the red bounding boxes.
-<img src="handwritten_sample.jpg">
+<img src="handwritten_sample.jpg" style="width: 50%; height: 50%">
 
 ## Downloading the Full Dataset
 Once you've navigated to the sidenotes directory in terminal, run:
@@ -21,8 +21,7 @@ mv datasets/train_data/JPEGImages/GovtLeaseSample3NYNJandTX datasets/train_data/
 ```
 
 ## Run the Jupyter Notebook
-Now, we're ready to train the model and make predictions! First, you'll need to [Install Jupyter Notebook or JupyterLab](https://jupyter.org/install)
-Once again, navigate to the sidenotes directory and run:
+Now, we're ready to train the model and make predictions! First, you'll need to [Install Jupyter Notebook or JupyterLab](https://jupyter.org/install). Once again, navigate to the sidenotes directory and run:
 ```
 mkdir model_full_dataset
 ```
