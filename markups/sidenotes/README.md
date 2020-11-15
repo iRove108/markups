@@ -15,6 +15,9 @@ Once you've navigated to the sidenotes directory in terminal, run:
 ```
 pip install azure-storage-blob
 python download_dataset.py
+mv datasets/train_data/JPEGImages/GovtLeaseSample1CAandAZ datasets/train_data/
+mv datasets/train_data/JPEGImages/GovtLeaseSample2CAandAZ datasets/train_data/
+mv datasets/train_data/JPEGImages/GovtLeaseSample3NYNJandTX datasets/train_data/
 ```
 
 ## Run the Jupyter Notebook
@@ -32,3 +35,7 @@ Now, open the `2020-04-09-Handwritten Text Detection in Detectron2` notebook wit
 After you've installed the dependencies (which can be done by executing the "Install Detectron2" cell in the Jupyter Notebook), you can:
 1. Edit [this line](https://github.com/iRove108/markups/blob/70babf3a2a679867bb59a61b748c8aa88ebeca0c/markups/sidenotes/sign_config/sign_faster_rcnn_R_50_FPN_3x.yaml#L10), [this line](https://github.com/iRove108/markups/blob/70babf3a2a679867bb59a61b748c8aa88ebeca0c/markups/sidenotes/train_parallel.py#L124), and [this line](https://github.com/iRove108/markups/blob/70babf3a2a679867bb59a61b748c8aa88ebeca0c/markups/sidenotes/train_parallel.py#L127) to indicate the number of GPUs you will be using.
 2. Run `python train_parallel.py`
+
+## Example
+Here is an example of using the model to make predictions for sidenotes:
+![](../../examples/sidenote_text/model2-results.jpg)
