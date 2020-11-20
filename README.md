@@ -21,3 +21,6 @@ The output should look something like this:
 
 ## Contributions
 See [CONTRIBUTING.md](https://github.com/iRove108/markups/blob/main/CONTRIBUTING.md)
+
+## Code of Conduct
+See [CODE_OF_CONDUCT.md](https://github.com/iRove108/markups/blob/main/CODE_OF_CONDUCT.md)
